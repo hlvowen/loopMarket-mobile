@@ -2,7 +2,7 @@ import { View, Text } from "react-native";
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import HomeScreen from "../screens/Home/HomeScreen";
-import { ProfileScreen } from "../screens";
+import { FeedScreen, ProfileScreen } from "../screens";
 import { COLORS } from "../constants/theme";
 import { FontAwesome } from "@expo/vector-icons";
 
@@ -16,6 +16,16 @@ const BottomTabs = () => {
         tabBarActiveTintColor: COLORS.primaryVariant,
       }}
     >
+      <Tab.Screen
+        name="Feed"
+        component={FeedScreen}
+        options={{
+          tabBarLabel: "Feed",
+          tabBarIcon: ({ color }) => (
+            <FontAwesome name="home" size={30} color={color} />
+          ),
+        }}
+      />
       <Tab.Screen
         name="Home"
         component={HomeScreen}
