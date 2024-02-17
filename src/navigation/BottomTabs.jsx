@@ -20,7 +20,7 @@ const BottomTabs = () => {
         name="Feed"
         component={FeedScreen}
         options={{
-          tabBarLabel: "Feed",
+          tabBarLabel: "Accueil",
           tabBarIcon: ({ color }) => (
             <FontAwesome name="home" size={30} color={color} />
           ),

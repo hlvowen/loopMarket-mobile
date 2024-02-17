@@ -1,12 +1,12 @@
 import { View, Text, TouchableOpacity, Image, StyleSheet } from "react-native";
 import React from "react";
 
-const Photo = () => {
+const Photo = ({ photo }) => {
   return (
     <TouchableOpacity>
       <Image
         style={styles.image}
-        source={require("../../assets/book.jpg")}
+        source={{ uri: photo }}
         resizeMode="stretch"
       />
     </TouchableOpacity>

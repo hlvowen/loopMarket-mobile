@@ -2,25 +2,22 @@ import { View, Text, StyleSheet } from "react-native";
 import React from "react";
 import Photo from "./Photo";
 
-const Content = () => {
+const Content = ({ title, caption, price, photo }) => {
   return (
     <View style={styles.content}>
       <View style={styles.leftCol}>
-        <Text style={styles.title} numberOfLines={3}>
-          The Entwined Beginning
+        <Text style={styles.title} numberOfLines={3} ellipsizeMode="tail">
+          {title}
         </Text>
         <Text style={styles.price} numberOfLines={1}>
-          50 $
+          {price} €
         </Text>
-        <Text style={styles.caption} numberOfLines={1}>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat.
+        <Text style={styles.caption} numberOfLines={1} ellipsizeMode="tail">
+          {caption}
         </Text>
       </View>
       <View style={styles.rightCol}>
-        <Photo />
+        <Photo photo={photo} />
       </View>
     </View>
   );

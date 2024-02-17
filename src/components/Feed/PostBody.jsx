@@ -2,14 +2,18 @@ import { View, Text, StyleSheet } from "react-native";
 import React from "react";
 import { SIZES } from "../../constants/theme";
 import Sidebar from "./Sidebar";
-import PhotoFrame from "../Reusable/PhotoFrame";
 import Content from "./Content";
+import { LinearGradient } from "expo-linear-gradient";
 
-const PostBody = () => {
+const PostBody = ({ title, caption, price, photo }) => {
   return (
     <View style={styles.postBody}>
+      <LinearGradient
+        colors={["transparent", "rgba(0,0,0,0.8)"]}
+        style={[StyleSheet.absoluteFillObject, styles.overlay]}
+      />
       <Sidebar />
-      <Content />
+      <Content title={title} caption={caption} price={price} photo={photo} />
     </View>
   );
 };
@@ -21,4 +25,5 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "flex-end",
   },
+  overlay: { top: "50%" },
 });

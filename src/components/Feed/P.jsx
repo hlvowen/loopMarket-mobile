@@ -2,16 +2,19 @@ import { View, Text, StyleSheet, Image } from "react-native";
 import React from "react";
 import { SIZES } from "../../constants/theme";
 import PostBody from "./PostBody";
+import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 
-const P = () => {
+const P = ({ title, caption, price, photo }) => {
+  const tabBarHeight = useBottomTabBarHeight();
+
   return (
-    <View style={styles.post}>
+    <View style={styles.post(tabBarHeight)}>
       <Image
         style={styles.image}
         resizeMode="stretch"
-        source={require("../../assets/book.jpg")}
+        source={{ uri: photo }}
       />
-      <PostBody />
+      <PostBody title={title} caption={caption} price={price} photo={photo} />
     </View>
   );
 };
@@ -19,9 +22,9 @@ const P = () => {
 export default P;
 
 const styles = StyleSheet.create({
-  post: {
-    flex: 1,
-  },
+  post: (tabBarHeight) => ({
+    height: SIZES.height - tabBarHeight,
+  }),
   image: {
     height: SIZES.height,
     width: SIZES.width,
