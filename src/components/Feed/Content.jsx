@@ -2,7 +2,7 @@ import { View, Text, StyleSheet } from "react-native";
 import React from "react";
 import Photo from "./Photo";
 
-const Content = ({ title, caption, price, photo }) => {
+const Content = ({ title, caption, price, photo, onPressPhoto }) => {
   return (
     <View style={styles.content}>
       <View style={styles.leftCol}>
@@ -17,7 +17,7 @@ const Content = ({ title, caption, price, photo }) => {
         </Text>
       </View>
       <View style={styles.rightCol}>
-        <Photo photo={photo} />
+        <Photo photo={photo} onPress={onPressPhoto} />
       </View>
     </View>
   );

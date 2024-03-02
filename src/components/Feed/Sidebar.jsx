@@ -6,12 +6,12 @@ import { SIZES } from "../../constants/theme";
 const Sidebar = () => {
   return (
     <View style={styles.sidebar}>
-      <InterectiveButton iconName={"heart"} iconSize={40} iconColor={"#fff"} />
+      {/* <InterectiveButton iconName={"heart"} iconSize={40} iconColor={"#fff"} />
       <InterectiveButton
         iconName={"commenting"}
         iconSize={40}
         iconColor={"#fff"}
-      />
+      /> */}
     </View>
   );
 };

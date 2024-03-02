@@ -1,9 +1,9 @@
 import { View, Text, TouchableOpacity, Image, StyleSheet } from "react-native";
 import React from "react";
 
-const Photo = ({ photo }) => {
+const Photo = ({ photo, onPress }) => {
   return (
-    <TouchableOpacity>
+    <TouchableOpacity onPress={onPress}>
       <Image
         style={styles.image}
         source={{ uri: photo }}

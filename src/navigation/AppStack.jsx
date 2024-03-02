@@ -4,6 +4,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import BottomTabs from "./BottomTabs";
 import { CheckoutScreen } from "../screens";
 import PaymentScreen from "../screens/Payment/PaymentScreen";
+import PostDetailsScreen from "../screens/PostDetails/PostDetailsScreen";
 
 const Stack = createStackNavigator();
 
@@ -19,6 +20,11 @@ const AppStack = () => {
         name="Payment"
         component={PaymentScreen}
         options={{ headerTitle: "Paiement" }}
+      />
+      <Stack.Screen
+        name="PostDetails"
+        component={PostDetailsScreen}
+        options={{ headerTitle: "Paiement", headerShown: false }}
       />
     </Stack.Navigator>
   );

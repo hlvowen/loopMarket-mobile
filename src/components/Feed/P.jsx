@@ -4,7 +4,7 @@ import { SIZES } from "../../constants/theme";
 import PostBody from "./PostBody";
 import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 
-const P = ({ title, caption, price, photo }) => {
+const P = ({ title, caption, price, photo, onPressPhoto }) => {
   const tabBarHeight = useBottomTabBarHeight();
 
   return (
@@ -14,7 +14,13 @@ const P = ({ title, caption, price, photo }) => {
         resizeMode="stretch"
         source={{ uri: photo }}
       />
-      <PostBody title={title} caption={caption} price={price} photo={photo} />
+      <PostBody
+        title={title}
+        caption={caption}
+        price={price}
+        photo={photo}
+        onPressPhoto={onPressPhoto}
+      />
     </View>
   );
 };

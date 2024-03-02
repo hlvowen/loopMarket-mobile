@@ -5,7 +5,7 @@ import Sidebar from "./Sidebar";
 import Content from "./Content";
 import { LinearGradient } from "expo-linear-gradient";
 
-const PostBody = ({ title, caption, price, photo }) => {
+const PostBody = ({ title, caption, price, photo, onPressPhoto }) => {
   return (
     <View style={styles.postBody}>
       <LinearGradient
@@ -13,7 +13,13 @@ const PostBody = ({ title, caption, price, photo }) => {
         style={[StyleSheet.absoluteFillObject, styles.overlay]}
       />
       <Sidebar />
-      <Content title={title} caption={caption} price={price} photo={photo} />
+      <Content
+        title={title}
+        caption={caption}
+        price={price}
+        photo={photo}
+        onPressPhoto={onPressPhoto}
+      />
     </View>
   );
 };

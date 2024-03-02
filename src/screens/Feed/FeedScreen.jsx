@@ -23,8 +23,8 @@ const FeedScreen = ({ navigation }) => {
         caption={item.desc}
         price={item.prix}
         photo={item.photo}
-        onPressCheckout={() =>
-          navigation.navigate("Payment", { itemId: item["_id"]["$oid"] })
+        onPressPhoto={() =>
+          navigation.navigate("PostDetails", { postId: item["_id"]["$oid"] })
         }
       />
     );

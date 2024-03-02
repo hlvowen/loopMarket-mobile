@@ -3,6 +3,7 @@ import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import HomeScreen from "../screens/Home/HomeScreen";
 import { FeedScreen, ProfileScreen } from "../screens";
+import MessagesScreen from "../screens/Messages/MessagesScreen";
 import { COLORS } from "../constants/theme";
 import { FontAwesome } from "@expo/vector-icons";
 
@@ -22,7 +23,19 @@ const BottomTabs = () => {
         options={{
           tabBarLabel: "Accueil",
           tabBarIcon: ({ color }) => (
-            <FontAwesome name="home" size={30} color={color} />
+            <FontAwesome name="home" size={26} color={color} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Messages"
+        component={MessagesScreen}
+        options={{
+          headerShown: true,
+          headerStyle: { backgroundColor: COLORS.primary },
+          tabBarLabel: "Messages",
+          tabBarIcon: ({ color }) => (
+            <FontAwesome name="envelope" size={26} color={color} />
           ),
         }}
       />
