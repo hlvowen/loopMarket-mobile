@@ -9,7 +9,7 @@ const FeedScreen = ({ navigation }) => {
   const tabBarHeight = useBottomTabBarHeight();
   const [posts, setPosts] = useState([]);
   useEffect(() => {
-    fetch("http://localhost:8500/api/annonces-disponibles/6")
+    fetch("http://localhost:8500/api/annonces-disponibles/5")
       .then((response) => response.json())
       .then((data) => {
         setPosts(data);
@@ -20,13 +20,14 @@ const FeedScreen = ({ navigation }) => {
   // Quand on arrive au dernier post
   const onEndReached = () => {
     console.log("reached");
-    fetch("http://localhost:8500/api/annonces-disponibles/10")
+    fetch("http://localhost:8500/api/annonces-disponibles/5")
       .then((response) => response.json())
       .then((data) => {
         data.forEach((newPost) => {
-          console.log("newPost", newPost);
-          // Check if the new post already exists in the posts array
-          const isUnique = !posts.some((post) => post.id === newPost.id); // Assuming each post has an 'id' property
+          // On vérifie si la nouvelle annonce récupérée n'est pas déjà présente dans la liste
+          const isUnique = !posts.some(
+            (post) => post["_id"]["$oid"] === newPost["_id"]["$oid"]
+          ); // Assuming each post has an 'id' property
 
           // If the post is unique, add it to the posts array
           if (isUnique) {
