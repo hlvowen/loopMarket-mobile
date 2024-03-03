@@ -52,7 +52,7 @@ const HomeScreen = ({ navigation }) => {
       <FlatList
         data={posts}
         renderItem={renderItem}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item) => item["_id"]["$oid"]}
         snapToInterval={SIZES.height}
         snapToAlignment="start"
         decelerationRate="fast"

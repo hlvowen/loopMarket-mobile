@@ -6,6 +6,7 @@ import { FeedScreen, ProfileScreen } from "../screens";
 import MessagesScreen from "../screens/Messages/MessagesScreen";
 import { COLORS } from "../constants/theme";
 import { FontAwesome } from "@expo/vector-icons";
+import TopTabs from "./TopTabs";
 
 const Tab = createBottomTabNavigator();
 
@@ -29,7 +30,7 @@ const BottomTabs = () => {
       />
       <Tab.Screen
         name="Messages"
-        component={MessagesScreen}
+        component={TopTabs}
         options={{
           headerShown: true,
           headerStyle: { backgroundColor: COLORS.primary },
