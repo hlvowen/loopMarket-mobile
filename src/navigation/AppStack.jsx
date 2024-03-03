@@ -5,6 +5,7 @@ import BottomTabs from "./BottomTabs";
 import { CheckoutScreen } from "../screens";
 import PaymentScreen from "../screens/Payment/PaymentScreen";
 import PostDetailsScreen from "../screens/PostDetails/PostDetailsScreen";
+import PlaceAnOfferScreen from "../screens/Offer/PlaceAnOfferScreen";
 
 const Stack = createStackNavigator();
 
@@ -25,6 +26,15 @@ const AppStack = () => {
         name="PostDetails"
         component={PostDetailsScreen}
         options={{ headerTitle: "Paiement", headerShown: false }}
+      />
+      <Stack.Screen
+        name="PlaceAnOffer"
+        component={PlaceAnOfferScreen}
+        options={{
+          headerTitle: "Faire une offre",
+          headerShown: false,
+          presentation: "modal",
+        }}
       />
     </Stack.Navigator>
   );
