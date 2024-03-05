@@ -3,11 +3,11 @@ import React, { useEffect, useState } from "react";
 import { COLORS, SIZES } from "../../constants/theme";
 
 const PaymentScreen = ({ route }) => {
-  const { itemId } = route.params;
+  const { postId } = route.params;
   const [post, setPost] = useState({});
 
   useEffect(() => {
-    fetch(`http://localhost:8500/api/annonce/${itemId}`)
+    fetch(`http://localhost:8500/api/annonce/${postId}`)
       .then((response) => response.json())
       .then((data) => setPost(data))
       .catch((error) => console.error(error));
@@ -25,7 +25,7 @@ const PaymentScreen = ({ route }) => {
           </Text>
         </View>
         <View style={styles.rightCol}>
-          <Text style={styles.price}>{post.prix} $</Text>
+          <Text style={styles.price}>{post.prix} €</Text>
         </View>
       </View>
       <View style={styles.action}>

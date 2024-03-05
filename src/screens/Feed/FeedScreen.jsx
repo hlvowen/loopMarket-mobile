@@ -3,10 +3,8 @@ import React, { useState, useEffect } from "react";
 import { Post } from "../../components";
 import P from "../../components/Feed/P";
 import { COLORS, SIZES } from "../../constants/theme";
-import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 
 const FeedScreen = ({ navigation }) => {
-  const tabBarHeight = useBottomTabBarHeight();
   const [posts, setPosts] = useState([]);
   useEffect(() => {
     fetch("http://localhost:8500/api/annonces-disponibles/5")
@@ -27,9 +25,8 @@ const FeedScreen = ({ navigation }) => {
           // On vérifie si la nouvelle annonce récupérée n'est pas déjà présente dans la liste
           const isUnique = !posts.some(
             (post) => post["_id"]["$oid"] === newPost["_id"]["$oid"]
-          ); // Assuming each post has an 'id' property
+          );
 
-          // If the post is unique, add it to the posts array
           if (isUnique) {
             setPosts((currentPosts) => [...currentPosts, newPost]);
           }

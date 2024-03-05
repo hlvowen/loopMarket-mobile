@@ -1,4 +1,5 @@
 import {
+  FlatList,
   Image,
   SafeAreaView,
   ScrollView,
@@ -9,7 +10,7 @@ import {
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import { COLORS, SIZES } from "../../constants/theme";
-import { Avatar, Rating, Divider } from "@rneui/themed";
+import { Divider, Badge } from "@rneui/themed";
 import ReusableButton from "../../components/Reusable/ReusableButton";
 import { Ionicons } from "@expo/vector-icons";
 
@@ -67,6 +68,18 @@ const PostDetailsScreen = ({ route, navigation }) => {
           <Text style={styles.price}>{post.prix} €</Text>
           <Divider inset={true} insetType="middle" />
           <Text style={styles.caption}>{post.desc}</Text>
+          <FlatList
+            data={post.genre}
+            renderItem={({ item }) => (
+              <Badge
+                value={item}
+                badgeStyle={{ backgroundColor: COLORS.primaryVariant }}
+                containerStyle={{ marginEnd: 5 }}
+              />
+            )}
+            horizontal
+            showsHorizontalScrollIndicator={false}
+          />
         </View>
       </ScrollView>
       <View style={styles.card}>
@@ -98,6 +111,9 @@ const PostDetailsScreen = ({ route, navigation }) => {
           label={"Acheter"}
           labelColor={COLORS.primary}
           fontSize={16}
+          onPress={() =>
+            navigation.navigate("Payment", { postId: post["_id"]["$oid"] })
+          }
         />
       </View>
     </View>
