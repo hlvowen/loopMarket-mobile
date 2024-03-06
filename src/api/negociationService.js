@@ -56,4 +56,9 @@ async function getAllOfferByBuyerIdAndStatus(id, status) {
   return negociations;
 }
 
-export { placeAnOffer, getAllOfferBySellerId, getAllOfferByBuyerIdAndStatus };
+export {
+  placeAnOffer,
+  getAllOfferBySellerId,
+  getAllOfferByBuyerIdAndStatus,
+  updateStatus,
+};

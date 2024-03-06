@@ -6,12 +6,18 @@ import { CheckoutScreen } from "../screens";
 import PaymentScreen from "../screens/Payment/PaymentScreen";
 import PostDetailsScreen from "../screens/PostDetails/PostDetailsScreen";
 import PlaceAnOfferScreen from "../screens/Offer/PlaceAnOfferScreen";
+import SignInScreen from "../screens/SignIn/SignInScreen";
 
 const Stack = createStackNavigator();
 
 const AppStack = () => {
   return (
     <Stack.Navigator>
+      {/* <Stack.Screen
+        name="SigIn"
+        component={SignInScreen}
+        options={{ headerShown: true, headerTitle: "Connexion" }}
+      /> */}
       <Stack.Screen
         name="Root"
         component={BottomTabs}

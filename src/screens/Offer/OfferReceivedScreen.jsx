@@ -1,9 +1,11 @@
 import { StyleSheet, Text, View, Image } from "react-native";
 import React, { useEffect, useState } from "react";
-import NegotiationNotification from "../../components/Messages/NegotiationNotification";
 import { ListItem, Button } from "@rneui/themed";
 import { COLORS } from "../../constants/theme";
-import { getAllOfferBySellerId } from "../../api/negociationService";
+import {
+  getAllOfferBySellerId,
+  updateStatus,
+} from "../../api/negociationService";
 import { FlatList } from "react-native-gesture-handler";
 
 const OfferReceivedScreen = () => {
@@ -19,19 +21,13 @@ const OfferReceivedScreen = () => {
   }, []);
 
   const renderItem = ({ item }) => {
-    let opacityRefused;
-    let opacityValidate;
-    if (item.status == "En attente") {
-      opacityValidate = 1;
-      opacityRefused = 1;
-    } else {
-      if (item.status == "Acceptée") {
-        opacityRefused = 0.6;
-        opacityValidate = 1;
-      } else {
-        opacityRefused = 1;
-        opacityValidate = 0.6;
-      }
+    let disabledBtnValidate = false;
+    let disabledBtnRefuse = false;
+
+    if (item.status == "Acceptée") {
+      disabledBtnRefuse = true;
+    } else if (item.status == "Refusée") {
+      disabledBtnValidate = true;
     }
 
     let disabledBtn = false;
@@ -46,18 +42,19 @@ const OfferReceivedScreen = () => {
           borderBottomWidth: 2,
           borderColor: COLORS.primaryVariant,
         }}
-        rightContent={(reset) => (
+        rightContent={() => (
           <View style={{ flexDirection: "row", width: "100%" }}>
             <Button
-              onPress={() => reset()}
+              onPress={() => {
+                updateStatus({});
+              }}
               icon={{ name: "check", color: "white" }}
               buttonStyle={{
                 width: 65.5,
                 backgroundColor: COLORS.primary,
                 height: "100%",
-                opacity: opacityValidate,
               }}
-              disabled={disabledBtn}
+              disabled={disabledBtnValidate}
             />
             <Button
               onPress={() => reset()}
@@ -66,9 +63,8 @@ const OfferReceivedScreen = () => {
                 width: 65.5,
                 backgroundColor: COLORS.error,
                 height: "100%",
-                opacity: opacityValidate,
               }}
-              disabled={disabledBtn}
+              disabled={disabledBtnRefuse}
             />
           </View>
         )}
@@ -80,8 +76,8 @@ const OfferReceivedScreen = () => {
         />
         <ListItem.Content>
           <Text>
-            {item["acheteur_nego_id"]["$oid"]} vous propose
-            {item["nouveau_prix"]} pour l'article{" "}
+            {item["acheteur_nego_id"]["$oid"]} vous propose{" "}
+            {item["nouveau_prix"]} € pour l'article{" "}
             {item["annonce_nego_id"]["$oid"]}
           </Text>
         </ListItem.Content>
@@ -92,7 +88,12 @@ const OfferReceivedScreen = () => {
 
   return (
     <View>
-      <FlatList data={negociations} renderItem={renderItem} />
+      <FlatList
+        data={negociations}
+        keyExtractor={(item) => item["_id"]["$oid"]}
+        extraData={this.state}
+        renderItem={renderItem}
+      />
     </View>
   );
 };

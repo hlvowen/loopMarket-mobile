@@ -3,7 +3,6 @@ import { StatusBar } from "expo-status-bar";
 import { FlatList, SafeAreaView, StyleSheet, Text, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { Post } from "./src/components";
-import AppNavigator from "./src/navigation/AppNavigator";
 import AppStack from "./src/navigation/AppStack";
 
 const posts = [
