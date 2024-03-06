@@ -4,15 +4,17 @@ import { Avatar, Badge } from "@rneui/themed";
 import { getUserById } from "../../api/userService";
 import { COLORS } from "../../constants/theme";
 import ReusableButton from "../../components/Reusable/ReusableButton";
+import AuthContext from "../../context/AppContext";
 
 const ProfileScreen = ({ navigation }) => {
+  const { userId } = React.useContext(AuthContext);
   const [user, setUser] = useState([]);
 
   useEffect(() => {
-    getUserById("65dcfe5d277c2722bdfe9362").then((userResponse) => {
+    getUserById(`${userId}`).then((userResponse) => {
       setUser(userResponse);
     });
-  }, []);
+  }, [userId]);
   return (
     <View style={styles.container}>
       <View style={styles.card}>
@@ -45,11 +47,7 @@ const ProfileScreen = ({ navigation }) => {
             labelColor={COLORS.primaryVariant}
             fontSize={16}
             onPress={() => {
-              navigation.navigate("PlaceAnOffer", {
-                postId: post["_id"]["$oid"],
-                prix: post.prix,
-                vendeurId: post["vendeur_id"]["$oid"],
-              });
+              navigation.navigate("SignIn");
             }}
           />
         </View>

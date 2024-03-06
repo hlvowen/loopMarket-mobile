@@ -16,6 +16,7 @@ import React, { useEffect, useState } from "react";
 import { COLORS, SIZES } from "../../constants/theme";
 import ReusableButton from "../../components/Reusable/ReusableButton";
 import { placeAnOffer } from "../../api/negociationService";
+import AuthContext from "../../context/AppContext";
 
 const getMinimumOfferPrice = (offerPrice) => {
   let result = offerPrice - offerPrice * 0.4;
@@ -23,6 +24,7 @@ const getMinimumOfferPrice = (offerPrice) => {
 };
 
 const PlaceAnOfferScreen = ({ route, navigation }) => {
+  const { userId } = React.useContext(AuthContext);
   const { postId, vendeurId, prix } = route.params;
   const [priceOffer, setPriceOffer] = useState(0);
   const [canSubmitOffer, setCanSubmitOffer] = useState(false);
@@ -95,12 +97,11 @@ const PlaceAnOfferScreen = ({ route, navigation }) => {
                 placeAnOffer({
                   annonce_nego_id: postId,
                   vendeur_nego_id: vendeurId,
-                  acheteur_nego_id: "65dcfe5d277c2722bdfe9363",
+                  acheteur_nego_id: `${userId}`,
                   ancien_prix: prix,
                   nouveau_prix: priceOffer,
                 })
                   .then((response) => {
-                    console.log(response);
                     Alert.alert("Votre proposition a été envoyée");
                     navigation.goBack();
                   })

@@ -1,9 +1,11 @@
 import { StyleSheet, Text, View } from "react-native";
-import React from "react";
+import React, { useContext } from "react";
 import { COLORS } from "../../constants/theme";
 import ReusableButton from "../../components/Reusable/ReusableButton";
+import AuthContext from "../../context/AppContext";
 
-export default function SignInScreen() {
+export default function SignInScreen({ navigation }) {
+  const { userId, setUserId } = React.useContext(AuthContext);
   return (
     <View style={styles.container}>
       <View style={styles.card}>
@@ -19,11 +21,8 @@ export default function SignInScreen() {
             labelColor={COLORS.primaryVariant}
             fontSize={16}
             onPress={() => {
-              navigation.navigate("PlaceAnOffer", {
-                postId: post["_id"]["$oid"],
-                prix: post.prix,
-                vendeurId: post["vendeur_id"]["$oid"],
-              });
+              setUserId("65dcfe5d277c2722bdfe9363");
+              navigation.navigate("Root");
             }}
           />
           <ReusableButton
@@ -37,11 +36,8 @@ export default function SignInScreen() {
             labelColor={COLORS.primaryVariant}
             fontSize={16}
             onPress={() => {
-              navigation.navigate("PlaceAnOffer", {
-                postId: post["_id"]["$oid"],
-                prix: post.prix,
-                vendeurId: post["vendeur_id"]["$oid"],
-              });
+              setUserId("65dcfe5d277c2722bdfe9362");
+              navigation.navigate("Root");
             }}
           />
           <ReusableButton
@@ -55,11 +51,8 @@ export default function SignInScreen() {
             labelColor={COLORS.primaryVariant}
             fontSize={16}
             onPress={() => {
-              navigation.navigate("PlaceAnOffer", {
-                postId: post["_id"]["$oid"],
-                prix: post.prix,
-                vendeurId: post["vendeur_id"]["$oid"],
-              });
+              setUserId("65dcfe5d277c2722bdfe9364");
+              navigation.navigate("Root");
             }}
           />
         </View>

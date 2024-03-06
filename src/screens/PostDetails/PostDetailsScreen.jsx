@@ -13,16 +13,26 @@ import { COLORS, SIZES } from "../../constants/theme";
 import { Divider, Badge } from "@rneui/themed";
 import ReusableButton from "../../components/Reusable/ReusableButton";
 import { Ionicons } from "@expo/vector-icons";
+import { getUserById } from "../../api/userService";
 
 const PostDetailsScreen = ({ route, navigation }) => {
-  const { postId } = route.params;
+  const { postId, vendeurId } = route.params;
   const [post, setPost] = useState({});
+  const [seller, setSeller] = useState({});
 
   useEffect(() => {
-    fetch(`http://localhost:8500/api/annonce/${postId}`)
+    fetch(`https://preprod-loopmarket.gondwanna.eu/annonce/${postId}`)
       .then((response) => response.json())
-      .then((data) => setPost(data))
+      .then((data) => {
+        setPost(data);
+      })
       .catch((error) => console.error(error));
+  }, []);
+
+  useEffect(() => {
+    getUserById(`${vendeurId}`).then((userResponse) => {
+      setSeller(userResponse);
+    });
   }, []);
 
   return (
@@ -80,6 +90,10 @@ const PostDetailsScreen = ({ route, navigation }) => {
             horizontal
             showsHorizontalScrollIndicator={false}
           />
+          <Divider inset={true} insetType="middle" />
+          <Text>
+            Vendu par {seller.prenom} {seller.nom}
+          </Text>
         </View>
       </ScrollView>
       <View style={styles.card}>

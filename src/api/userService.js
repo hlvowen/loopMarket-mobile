@@ -1,5 +1,7 @@
 async function getUserById(id) {
-  const reponse = await fetch(`http://localhost:8000/utilisateurs/${id}`);
+  const reponse = await fetch(
+    `https://preprod-loopmarket.gondwanna.eu/utilisateurs/${id}`
+  );
   const user = await reponse.json();
   return user;
 }

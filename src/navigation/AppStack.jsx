@@ -13,11 +13,11 @@ const Stack = createStackNavigator();
 const AppStack = () => {
   return (
     <Stack.Navigator>
-      {/* <Stack.Screen
-        name="SigIn"
+      <Stack.Screen
+        name="SignIn"
         component={SignInScreen}
         options={{ headerShown: true, headerTitle: "Connexion" }}
-      /> */}
+      />
       <Stack.Screen
         name="Root"
         component={BottomTabs}

@@ -6,8 +6,10 @@ import { COLORS, SIZES } from "../../constants/theme";
 
 const FeedScreen = ({ navigation }) => {
   const [posts, setPosts] = useState([]);
+  const [refreshing, setRefreshing] = useState(false);
+
   useEffect(() => {
-    fetch("http://localhost:8500/api/annonces-disponibles/5")
+    fetch("https://preprod-loopmarket.gondwanna.eu/annonces-disponibles/5")
       .then((response) => response.json())
       .then((data) => {
         setPosts(data);
@@ -15,10 +17,21 @@ const FeedScreen = ({ navigation }) => {
       .catch((error) => console.error(error));
   }, []);
 
+  handleRefresh = () => {
+    setRefreshing(true);
+    fetch("https://preprod-loopmarket.gondwanna.eu/annonces-disponibles/5")
+      .then((response) => response.json())
+      .then((data) => {
+        setPosts(data);
+      })
+      .catch((error) => console.error(error));
+    setRefreshing(false);
+  };
+
   // Quand on arrive au dernier post
   const onEndReached = () => {
     console.log("reached");
-    fetch("http://localhost:8500/api/annonces-disponibles/5")
+    fetch("https://preprod-loopmarket.gondwanna.eu/annonces-disponibles/5")
       .then((response) => response.json())
       .then((data) => {
         data.forEach((newPost) => {
@@ -43,7 +56,10 @@ const FeedScreen = ({ navigation }) => {
         price={item.prix}
         photo={item.photo}
         onPressPhoto={() =>
-          navigation.navigate("PostDetails", { postId: item["_id"]["$oid"] })
+          navigation.navigate("PostDetails", {
+            postId: item["_id"]["$oid"],
+            vendeurId: item["vendeur_id"]["$oid"],
+          })
         }
       />
     );
@@ -59,6 +75,8 @@ const FeedScreen = ({ navigation }) => {
         keyExtractor={(item) => item["_id"]["$oid"]}
         onEndReached={onEndReached}
         onEndReachedThreshold={1}
+        refreshing={refreshing}
+        onRefresh={handleRefresh}
       />
     </View>
   );

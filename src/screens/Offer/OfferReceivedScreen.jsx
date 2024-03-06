@@ -1,5 +1,12 @@
-import { StyleSheet, Text, View, Image } from "react-native";
-import React, { useEffect, useState } from "react";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  RefreshControl,
+  Alert,
+} from "react-native";
+import React, { useContext, useEffect, useState } from "react";
 import { ListItem, Button } from "@rneui/themed";
 import { COLORS } from "../../constants/theme";
 import {
@@ -7,18 +14,33 @@ import {
   updateStatus,
 } from "../../api/negociationService";
 import { FlatList } from "react-native-gesture-handler";
+import AuthContext from "../../context/AppContext";
 
 const OfferReceivedScreen = () => {
   const [negociations, setNegociations] = useState([]);
+  const { userId } = useContext(AuthContext);
+  const [refreshing, setRefreshing] = useState(false);
 
   useEffect(() => {
-    getAllOfferBySellerId("65dcfe5d277c2722bdfe9364")
+    getAllOfferBySellerId(`${userId}`)
       .then((response) => {
         console.log(response);
         setNegociations(response);
       })
       .catch((error) => {});
   }, []);
+
+  handleRefresh = () => {
+    console.log("refreshing");
+    setRefreshing(true);
+    getAllOfferBySellerId(`${userId}`)
+      .then((response) => {
+        console.log(response);
+        setNegociations(response);
+      })
+      .catch((error) => {});
+    setRefreshing(false);
+  };
 
   const renderItem = ({ item }) => {
     let disabledBtnValidate = false;
@@ -46,7 +68,13 @@ const OfferReceivedScreen = () => {
           <View style={{ flexDirection: "row", width: "100%" }}>
             <Button
               onPress={() => {
-                updateStatus({});
+                updateStatus(item["_id"]["$oid"], { status: "Acceptée" })
+                  .then((response) => {
+                    Alert.alert("Vous avez accepté la proposition");
+                  })
+                  .catch((error) => {
+                    Alert.alert("Une erreur est survenue");
+                  });
               }}
               icon={{ name: "check", color: "white" }}
               buttonStyle={{
@@ -57,7 +85,15 @@ const OfferReceivedScreen = () => {
               disabled={disabledBtnValidate}
             />
             <Button
-              onPress={() => reset()}
+              onPress={() => {
+                updateStatus(item["_id"]["$oid"], { status: "Refusée" })
+                  .then((response) => {
+                    Alert.alert("Vous avez refusé la proposition");
+                  })
+                  .catch((error) => {
+                    Alert.alert("Une erreur est survenue");
+                  });
+              }}
               icon={{ name: "close", color: "white" }}
               buttonStyle={{
                 width: 65.5,
@@ -90,9 +126,11 @@ const OfferReceivedScreen = () => {
     <View>
       <FlatList
         data={negociations}
-        keyExtractor={(item) => item["_id"]["$oid"]}
-        extraData={this.state}
         renderItem={renderItem}
+        keyExtractor={(item) => item["_id"]["$oid"]}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />
+        }
       />
     </View>
   );
