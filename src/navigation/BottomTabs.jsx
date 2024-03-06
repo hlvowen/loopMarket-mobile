@@ -2,9 +2,11 @@ import { View, Text } from "react-native";
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import HomeScreen from "../screens/Home/HomeScreen";
-import { ProfileScreen } from "../screens";
+import { FeedScreen, ProfileScreen } from "../screens";
+import MessagesScreen from "../screens/Messages/MessagesScreen";
 import { COLORS } from "../constants/theme";
-import { FontAwesome } from "@expo/vector-icons";
+import { FontAwesome, Ionicons } from "@expo/vector-icons";
+import TopTabs from "./TopTabs";
 
 const Tab = createBottomTabNavigator();
 
@@ -17,16 +19,40 @@ const BottomTabs = () => {
       }}
     >
       <Tab.Screen
-        name="Home"
-        component={HomeScreen}
+        name="Feed"
+        component={FeedScreen}
         options={{
           tabBarLabel: "Accueil",
           tabBarIcon: ({ color }) => (
-            <FontAwesome name="home" size={30} color={color} />
+            <FontAwesome name="home" size={26} color={color} />
           ),
         }}
       />
-      {/* <Tab.Screen name="Profile" component={ProfileScreen} /> */}
+      <Tab.Screen
+        name="Messages"
+        component={TopTabs}
+        options={{
+          headerShown: true,
+          headerStyle: { backgroundColor: COLORS.primary },
+          tabBarLabel: "Messages",
+          tabBarIcon: ({ color }) => (
+            <FontAwesome name="envelope" size={26} color={color} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Profile"
+        component={ProfileScreen}
+        options={{
+          tabBarLabel: "Profil",
+          headerTitle: "Profil",
+          headerShown: true,
+          headerStyle: { backgroundColor: COLORS.primary },
+          tabBarIcon: ({ color }) => (
+            <Ionicons name="person-circle" size={26} color={color} />
+          ),
+        }}
+      />
     </Tab.Navigator>
   );
 };
